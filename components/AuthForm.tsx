@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import Link from "next/link";
-import ImageUpload from "./ImageUpload";
+import FileUpload from "@/components/FileUpload";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -40,7 +40,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
           title: "toaster-title toaster-title-success",
           description: "toaster-description",
         }
-      })
+      });
 
       router.push("/")
     } else {
@@ -51,7 +51,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
           title: "toaster-title toaster-title-error",
           description: "toaster-description",
         }
-      })
+      });
     }
   };
 
@@ -64,7 +64,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
         {isSignIn ? "Access the vast collection of resources, and stay updated" : "Please complete all fields and upload a valid university ID to gain access to the library"}
       </p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           {Object.keys(defaultValues).map((field) => (
             <FormField
             key={field}
@@ -75,7 +75,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                   <FormLabel className="capitalize">{FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}</FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload type="image" accept="image/*" placeholder="Upload your ID" folder="ids" variant="dark" onFileChange={field.onChange} />
                     ) : (
                       <Input required type={FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]}  {...field} className="form-input" />
                     )}
