@@ -48,7 +48,7 @@ const BorrowBook = ({ bookId, userId, borrowingEligibility: { isEligible, messag
           }
         })
         
-        router.push("/my-profile")
+        router.push("/")
       } else {
         toast("Error", {
           description: result.message,
